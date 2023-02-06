@@ -9,8 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/")
 public class CostumRestController {
+
+
+    @Autowired
+    private final GameControllService gameControllService;
+
+    CostumRestController(GameControllService gameControllService){
+        this.gameControllService = gameControllService;
+    }
     @GetMapping("hello")
-    public GameElement getString(){
-        return new GameElement(1, "Hello");
+    public int getGameElement(){
+        return this.gameControllService.play();
     }
 }
