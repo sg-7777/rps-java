@@ -1,6 +1,8 @@
 package com.rps.rps;
+import com.rps.rps.dtos.MatchDTO;
 import com.rps.rps.dtos.PlayerDTO;
-import com.rps.rps.gameitems.Match;
+import com.rps.rps.gameitems.MatchModel;
+import com.rps.rps.models.PlayerModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +24,17 @@ public class CustomRestController {
 
     /**
      * Method for a typical match between a real and a CPU player
-     * @param player the player instance from the frontend with the name and their hand
+     * @param playerDTO the player instance from the frontend with the name and their hand
      * @return A match object with both participants and the result of their match
      */
     @PostMapping("play")
-    public Match determineWinner(@RequestBody PlayerDTO player){
-        return gameControlService.play(player);
+    public MatchDTO determineWinner(@RequestBody PlayerDTO playerDTO){
+        PlayerModel playerModel = Mapper.mapToPlayerModel(playerDTO);
+
+        MatchModel match = gameControlService.play(playerModel);
+        MatchDTO matchDTO = Mapper.mapMatchModelToMatchDTO(match);
+        return matchDTO;
+                //new MatchDTO(new PlayerDTO("1", "2", "3"), new PlayerDTO("11", "22", "3"));
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.rps.rps.opponent;
 
+import com.rps.rps.gameitems.Item;
 import com.rps.rps.rules.HandsDict;
 
 import java.util.Random;
@@ -11,11 +12,10 @@ public class NormalOpponent implements RandomOpponent{
 
     /**
      * Random number between 1 and 3 to decide via HandsDict which option of ROCK, PAPER, SCISSORS can be taken
-     * @return the hand as string
+     * @return the hand as Item
      */
     @Override
-    //TODO refactor return type to enum type
-    public String throwHand() {
+    public Item throwHand() {
         Random rng = new Random();
         int i = rng.ints(1,4).findFirst().getAsInt();
         return HandsDict.getHand(i);
