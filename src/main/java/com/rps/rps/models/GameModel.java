@@ -10,10 +10,11 @@ public class GameModel {
     private String id;
 
     private MatchModel match;
-    private String score;
+    private int playerOneScore, playerTwoScore;
 
-    public GameModel(MatchModel match, String score){
+    public GameModel(MatchModel match, int playerOneScore, int playerTwoScore){
         this.match = match;
-        this.score = score;
+        this.playerOneScore = playerOneScore;
+        this.playerTwoScore = playerTwoScore;
     }
 }

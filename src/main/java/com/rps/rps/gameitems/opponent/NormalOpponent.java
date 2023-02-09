@@ -1,7 +1,7 @@
 package com.rps.rps.gameitems.opponent;
 
 import com.rps.rps.gameitems.Item;
-import com.rps.rps.rules.HandsDict;
+import com.rps.rps.gameitems.rules.HandsDict;
 
 import java.util.Random;
 

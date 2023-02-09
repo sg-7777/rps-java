@@ -1,6 +1,10 @@
 package com.rps.rps.services;
 
+import com.rps.rps.gameitems.Item;
+import com.rps.rps.gameitems.Result;
 import com.rps.rps.models.GameModel;
+import com.rps.rps.models.MatchModel;
+import com.rps.rps.models.PlayerModel;
 import com.rps.rps.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,7 @@ public class SavegameService {
      */
     public void saveGame(GameModel gameModel){
         gameRepository.save(gameModel);
+        System.out.println("hello");
     }
 
     /**
@@ -29,6 +34,11 @@ public class SavegameService {
      * @return random game played in the past
      */
     public GameModel loadGame(){
+        PlayerModel playerModel1 = new PlayerModel("1", "Test1", Item.PAPER, Result.DRAW);
+        PlayerModel playerModel2 = new PlayerModel("2", "Test2", Item.PAPER, Result.DRAW);
+        MatchModel match = new MatchModel(playerModel1, playerModel2);
+        GameModel game = new GameModel(match, 1, 1);
+        gameRepository.save(game);
         return gameRepository.findAll().get(0);
     }
 }

@@ -1,4 +1,4 @@
-package com.rps.rps.rules;
+package com.rps.rps.gameitems.rules;
 
 import com.rps.rps.gameitems.Item;
 import com.rps.rps.models.MatchModel;

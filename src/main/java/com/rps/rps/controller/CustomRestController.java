@@ -1,5 +1,5 @@
-package com.rps.rps.restapi;
-import com.rps.rps.mappingservice.Mapper;
+package com.rps.rps.controller;
+import com.rps.rps.mapper.Mapper;
 import com.rps.rps.dtos.GameDTO;
 import com.rps.rps.dtos.MatchDTO;
 import com.rps.rps.dtos.PlayerDTO;
@@ -39,6 +39,7 @@ public class CustomRestController {
      */
     @PostMapping("play")
     public MatchDTO determineWinner(@RequestBody PlayerDTO playerDTO){
+        System.out.println("REST PLAY");
         PlayerModel playerModel = Mapper.mapToPlayerModel(playerDTO);
 
         MatchModel match = gameControlService.play(playerModel);
@@ -48,12 +49,14 @@ public class CustomRestController {
 
     @PutMapping("savegame")
     public void saveGame(@RequestBody GameDTO gameDTO){
+        System.out.println("REST SAVE");
         GameModel game = Mapper.mapGameDTOToGameModel(gameDTO);
-
+        this.savegameService.saveGame(game);
     }
 
     @GetMapping("loadgame")
     public GameDTO loadGame(){
+        System.out.println("REST LOAD");
         return Mapper.mapGameModelToGameDTO(savegameService.loadGame());
     }
 }

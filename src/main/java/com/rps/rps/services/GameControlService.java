@@ -3,7 +3,7 @@ package com.rps.rps.services;
 import com.rps.rps.models.MatchModel;
 import com.rps.rps.models.PlayerModel;
 import com.rps.rps.gameitems.opponent.NormalOpponent;
-import com.rps.rps.rules.RuleEngine;
+import com.rps.rps.gameitems.rules.RuleEngine;
 import org.springframework.stereotype.Service;
 
 /**

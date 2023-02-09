@@ -2,10 +2,7 @@ package com.rps.rps.models;
 
 import com.rps.rps.gameitems.Item;
 import com.rps.rps.gameitems.Result;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -13,6 +10,7 @@ import org.springframework.data.annotation.Id;
  */
 @Builder
 @Data
+@AllArgsConstructor
 public class PlayerModel {
 
     @Id

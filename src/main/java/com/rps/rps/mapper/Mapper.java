@@ -1,4 +1,4 @@
-package com.rps.rps.mappingservice;
+package com.rps.rps.mapper;
 
 import com.rps.rps.dtos.GameDTO;
 import com.rps.rps.dtos.MatchDTO;
@@ -52,11 +52,11 @@ public class Mapper {
 
     public static GameModel mapGameDTOToGameModel(GameDTO gameDTO){
         MatchModel m = mapMatchDTOToMatchModel(gameDTO.getMatch());
-        return new GameModel(m, gameDTO.getScore());
+        return new GameModel(m, gameDTO.getPlayerOneScore(), gameDTO.getPlayerTwoScore());
     }
 
     public static GameDTO mapGameModelToGameDTO(GameModel gameModel){
         MatchDTO m = mapMatchModelToMatchDTO(gameModel.getMatch());
-        return new GameDTO(m, gameModel.getScore());
+        return new GameDTO(m, gameModel.getPlayerOneScore(), gameModel.getPlayerTwoScore());
     }
 }

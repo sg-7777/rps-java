@@ -8,5 +8,5 @@ public class GameDTO {
     @Getter
     private MatchDTO match;
     @Getter
-    private String score;
+    private int playerOneScore, playerTwoScore;
 }
