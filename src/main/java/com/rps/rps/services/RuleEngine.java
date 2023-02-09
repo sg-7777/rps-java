@@ -1,16 +1,18 @@
-package com.rps.rps.gameitems.rules;
+package com.rps.rps.services;
 
 import com.rps.rps.gameitems.Item;
 import com.rps.rps.models.MatchModel;
 import com.rps.rps.gameitems.Result;
 import com.rps.rps.models.PlayerModel;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * Rules for the game are here defined
  */
+@Component
 public class RuleEngine {
-
-    private RuleEngine(){}
 
     /**
      * This method implements the basic and international known rules for rock, paper, scissors
@@ -18,7 +20,7 @@ public class RuleEngine {
      * @param playerTwo most of the time the fake human aka CPU
      * @return sets both players in a context called match
      */
-    public static MatchModel decide(PlayerModel playerOne, PlayerModel playerTwo){
+    public MatchModel decideOutcome(PlayerModel playerOne, PlayerModel playerTwo){
         if(playerOne.getChoice().equals(playerTwo.getChoice())){
             playerOne.setResult(Result.DRAW);
             playerTwo.setResult(Result.DRAW);

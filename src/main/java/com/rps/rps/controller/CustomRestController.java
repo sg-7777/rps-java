@@ -42,7 +42,7 @@ public class CustomRestController {
         System.out.println("REST PLAY");
         PlayerModel playerModel = Mapper.mapToPlayerModel(playerDTO);
 
-        MatchModel match = gameControlService.play(playerModel);
+        MatchModel match = gameControlService.playAndDecideOutcome(playerModel);
         MatchDTO matchDTO = Mapper.mapMatchModelToMatchDTO(match);
         return matchDTO;
     }
