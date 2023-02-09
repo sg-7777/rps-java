@@ -1,8 +1,13 @@
-package com.rps.rps;
+package com.rps.rps.restapi;
+import com.rps.rps.mappingservice.Mapper;
+import com.rps.rps.dtos.GameDTO;
 import com.rps.rps.dtos.MatchDTO;
 import com.rps.rps.dtos.PlayerDTO;
-import com.rps.rps.gameitems.MatchModel;
+import com.rps.rps.models.GameModel;
+import com.rps.rps.models.MatchModel;
 import com.rps.rps.models.PlayerModel;
+import com.rps.rps.services.GameControlService;
+import com.rps.rps.services.SavegameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +23,13 @@ public class CustomRestController {
     @Autowired
     private final GameControlService gameControlService;
 
-    CustomRestController(GameControlService gameControlService){
+    @Autowired
+    private final SavegameService savegameService;
+
+    CustomRestController(GameControlService gameControlService,
+                         SavegameService savegameService){
         this.gameControlService = gameControlService;
+        this.savegameService =savegameService;
     }
 
     /**
@@ -34,16 +44,16 @@ public class CustomRestController {
         MatchModel match = gameControlService.play(playerModel);
         MatchDTO matchDTO = Mapper.mapMatchModelToMatchDTO(match);
         return matchDTO;
-                //new MatchDTO(new PlayerDTO("1", "2", "3"), new PlayerDTO("11", "22", "3"));
     }
 
-    /**
-     * Dummy mehtod for testing
-     * @return
-     */
-    @GetMapping("playerchoice")
-    public String setPlayerChoice(){
+    @PutMapping("savegame")
+    public void saveGame(@RequestBody GameDTO gameDTO){
+        GameModel game = Mapper.mapGameDTOToGameModel(gameDTO);
 
-        return "Works";
+    }
+
+    @GetMapping("loadgame")
+    public GameDTO loadGame(){
+        return Mapper.mapGameModelToGameDTO(savegameService.loadGame());
     }
 }

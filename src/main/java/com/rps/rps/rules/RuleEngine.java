@@ -1,7 +1,7 @@
 package com.rps.rps.rules;
 
 import com.rps.rps.gameitems.Item;
-import com.rps.rps.gameitems.MatchModel;
+import com.rps.rps.models.MatchModel;
 import com.rps.rps.gameitems.Result;
 import com.rps.rps.models.PlayerModel;
 

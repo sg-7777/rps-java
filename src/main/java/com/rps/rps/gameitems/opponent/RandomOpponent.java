@@ -1,4 +1,4 @@
-package com.rps.rps.opponent;
+package com.rps.rps.gameitems.opponent;
 
 import com.rps.rps.gameitems.Item;
 
