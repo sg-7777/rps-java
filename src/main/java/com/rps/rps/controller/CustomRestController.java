@@ -1,6 +1,5 @@
 package com.rps.rps.controller;
-import com.rps.rps.gameitems.Item;
-import com.rps.rps.gameitems.Result;
+
 import com.rps.rps.mapper.Mapper;
 import com.rps.rps.dtos.GameDTO;
 import com.rps.rps.dtos.MatchDTO;
@@ -14,8 +13,6 @@ import com.rps.rps.repository.PlayerService;
 import com.rps.rps.repository.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 /**
  * REST API for backend logic
@@ -32,20 +29,12 @@ public class CustomRestController {
     @Autowired
     private final GameService gameService;
 
-    @Autowired
-    private final PlayerService playerService;
-
-    @Autowired
-    private final MatchService matchService;
-
     CustomRestController(GameControlService gameControlService,
                          GameService gameService,
                          PlayerService playerService,
                          MatchService matchService){
         this.gameControlService = gameControlService;
         this.gameService = gameService;
-        this.playerService = playerService;
-        this.matchService = matchService;
     }
 
     /**
