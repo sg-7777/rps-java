@@ -21,4 +21,13 @@ public class PlayerModel {
 
     private Result result;
 
+    public PlayerModel(){
+
+    }
+    public PlayerModel(String name, Item choice, Result result){
+        this.name = name;
+        this.choice = choice;
+        this.result = result;
+    }
+
 }

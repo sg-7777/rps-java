@@ -13,9 +13,12 @@ public class MatchModel {
     @Id
     private String id;
 
+    private String matchid;
+
     private PlayerModel playerOne, playerTwo;
 
-    public MatchModel(PlayerModel playerOne, PlayerModel playerTwo){
+    public MatchModel(String matchid, PlayerModel playerOne, PlayerModel playerTwo){
+        this.matchid = matchid;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
     }
