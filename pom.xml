@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
+			<version>1.18.22</version>
 		</dependency>
 
 		<dependency>
@@ -79,6 +79,13 @@
 			<version>3.0.2</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.hibernate.ogm/hibernate-ogm-mongodb -->
+		<dependency>
+			<groupId>org.hibernate.ogm</groupId>
+			<artifactId>hibernate-ogm-mongodb</artifactId>
+			<version>5.4.1.Final</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -89,6 +96,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>rps</finalName>
 	</build>
 
 </project>
