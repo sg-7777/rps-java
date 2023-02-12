@@ -12,6 +12,11 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 
 /**
  * This Service is responsible for managing the Game Data of two players
@@ -46,17 +51,20 @@ public class GameService {
      * Loading a random GameModel from mongoDB
      * @return random game played in the past
      */
-    public GameModel loadGame(){
-        return gameRepository.findAll().get(0);
+    public GameModel loadGame(String gameid){
+        return gameRepository.findByGameid(gameid);
     }
 
     public Document createGameDocument(GameModel gameModel){
         Document gameDoc = new Document("_id", new ObjectId());
         gameDoc.append("gameid", gameModel.getGameid());
 
+        ArrayList<Document> matches = new ArrayList<>();
+
         for(MatchModel m : gameModel.getMatches()){
-            gameDoc.append("match " + m.getMatchid(), matchService.createMatchDocument(m));
+            matches.add(matchService.createMatchDocument(m));
         }
+        gameDoc.append("matches", matches);
 
         gameDoc.append("playerOneScore", gameModel.getPlayerOneScore())
                 .append("playerTwoScore", gameModel.getPlayerTwoScore());

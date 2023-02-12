@@ -15,7 +15,7 @@ public class NormalOpponent implements RandomOpponent{
      * @return the hand as Item
      */
     @Override
-    public Item throwHand() {
+    public Item pickHand() {
         Random rng = new Random();
         int i = rng.ints(1,4).findFirst().getAsInt();
         return HandsDict.getHand(i);

@@ -11,5 +11,5 @@ public interface RandomOpponent {
      * Standard method for playing the game
      * @return returns the picked hand as ItemType
      */
-     Item throwHand();
+     Item pickHand();
 }

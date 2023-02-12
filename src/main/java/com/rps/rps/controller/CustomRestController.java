@@ -1,4 +1,6 @@
 package com.rps.rps.controller;
+import com.rps.rps.gameitems.Item;
+import com.rps.rps.gameitems.Result;
 import com.rps.rps.mapper.Mapper;
 import com.rps.rps.dtos.GameDTO;
 import com.rps.rps.dtos.MatchDTO;
@@ -7,9 +9,13 @@ import com.rps.rps.models.GameModel;
 import com.rps.rps.models.MatchModel;
 import com.rps.rps.models.PlayerModel;
 import com.rps.rps.services.GameControlService;
-import com.rps.rps.services.SavegameService;
+import com.rps.rps.repository.MatchService;
+import com.rps.rps.repository.PlayerService;
+import com.rps.rps.repository.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 /**
  * REST API for backend logic
@@ -24,12 +30,22 @@ public class CustomRestController {
     private final GameControlService gameControlService;
 
     @Autowired
-    private final SavegameService savegameService;
+    private final GameService gameService;
+
+    @Autowired
+    private final PlayerService playerService;
+
+    @Autowired
+    private final MatchService matchService;
 
     CustomRestController(GameControlService gameControlService,
-                         SavegameService savegameService){
+                         GameService gameService,
+                         PlayerService playerService,
+                         MatchService matchService){
         this.gameControlService = gameControlService;
-        this.savegameService =savegameService;
+        this.gameService = gameService;
+        this.playerService = playerService;
+        this.matchService = matchService;
     }
 
     /**
@@ -47,16 +63,30 @@ public class CustomRestController {
         return matchDTO;
     }
 
-    @PutMapping("savegame")
-    public void saveGame(@RequestBody GameDTO gameDTO){
+    /**
+     * Rest API for saving games to the database
+     * @param gameDTO the game to be saved
+     * @return boolean if the game was saved or not
+     */
+    @PostMapping("savegame")
+    public boolean saveGame(@RequestBody GameDTO gameDTO){
         System.out.println("REST SAVE");
+
         GameModel game = Mapper.mapGameDTOToGameModel(gameDTO);
-        this.savegameService.saveGame(game);
+        return this.gameService.saveGame(game);
     }
 
-    @GetMapping("loadgame")
-    public GameDTO loadGame(){
+    /**
+     * Loading a specific game from the database
+     * @return returning the specified game
+     */
+    @PostMapping("loadgame")
+    public GameDTO loadGame(@RequestBody String gameid){
         System.out.println("REST LOAD");
-        return Mapper.mapGameModelToGameDTO(savegameService.loadGame());
+        GameModel gameModel = this.gameService.loadGame(gameid);
+        GameDTO gameDTO = Mapper.mapGameModelToGameDTO(gameModel);
+
+        return gameDTO;
     }
+
 }

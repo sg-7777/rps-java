@@ -4,7 +4,6 @@ import com.rps.rps.models.MatchModel;
 import com.rps.rps.models.PlayerModel;
 import com.rps.rps.gameitems.opponent.NormalOpponent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,7 +31,7 @@ public class GameControlService {
     private PlayerModel getMediumCpu() {
         return PlayerModel.builder()
                 .name("Medium CPU")
-                .choice(new NormalOpponent().throwHand())
+                .choice(new NormalOpponent().pickHand())
                 .build();
     }
 
