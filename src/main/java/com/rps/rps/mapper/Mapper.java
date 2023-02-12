@@ -4,9 +4,12 @@ import com.rps.rps.dtos.GameDTO;
 import com.rps.rps.dtos.MatchDTO;
 import com.rps.rps.dtos.PlayerDTO;
 import com.rps.rps.gameitems.Item;
+import com.rps.rps.gameitems.Result;
 import com.rps.rps.models.GameModel;
 import com.rps.rps.models.MatchModel;
 import com.rps.rps.models.PlayerModel;
+
+import java.util.ArrayList;
 
 /**
  * simple "static" class for mapping between all DTOs and Models
@@ -24,6 +27,7 @@ public class Mapper {
         return PlayerModel.builder()
                 .name(playerDTO.getName())
                 .choice(Item.valueOf(playerDTO.getChoice().toUpperCase()))
+                .result(playerDTO.getResult() != null ? Result.valueOf(playerDTO.getResult()) : null)
                 .build();
     }
 
@@ -41,22 +45,42 @@ public class Mapper {
     }
 
     public static MatchDTO mapMatchModelToMatchDTO(MatchModel matchModel){
-        return new MatchDTO(mapToPlayerDTO(matchModel.getPlayerOne()),
+        return new MatchDTO(matchModel.getMatchid(),
+                            mapToPlayerDTO(matchModel.getPlayerOne()),
                             mapToPlayerDTO(matchModel.getPlayerTwo()));
     }
 
     public static MatchModel mapMatchDTOToMatchModel(MatchDTO matchDTO){
-        return new MatchModel(mapToPlayerModel(matchDTO.getPlayerOne()),
+        return new MatchModel(matchDTO.getMatchid(),
+                                mapToPlayerModel(matchDTO.getPlayerOne()),
                                 mapToPlayerModel(matchDTO.getPlayerTwo()));
     }
 
     public static GameModel mapGameDTOToGameModel(GameDTO gameDTO){
-        MatchModel m = mapMatchDTOToMatchModel(gameDTO.getMatch());
-        return new GameModel(m, gameDTO.getPlayerOneScore(), gameDTO.getPlayerTwoScore());
+        GameModel gameModel = new GameModel(gameDTO.getGameid(),
+                                            new ArrayList<MatchModel>(),
+                                            gameDTO.getPlayerOneScore(),
+                                            gameDTO.getPlayerTwoScore());
+
+        for(MatchDTO mDTO : gameDTO.getMatches()){
+            MatchModel matchModel = mapMatchDTOToMatchModel(mDTO);
+            gameModel.addMatchModel(matchModel);
+        }
+
+        return gameModel;
     }
 
     public static GameDTO mapGameModelToGameDTO(GameModel gameModel){
-        MatchDTO m = mapMatchModelToMatchDTO(gameModel.getMatch());
-        return new GameDTO(m, gameModel.getPlayerOneScore(), gameModel.getPlayerTwoScore());
+        GameDTO gameDTO = new GameDTO(gameModel.getGameid(),
+                                        new ArrayList<MatchDTO>(),
+                                        gameModel.getPlayerOneScore(),
+                                        gameModel.getPlayerTwoScore());
+
+        for(MatchModel mModel : gameModel.getMatches()){
+            MatchDTO matchDTO = mapMatchModelToMatchDTO(mModel);
+            gameDTO.addMatchDTO(matchDTO);
+        }
+
+        return gameDTO;
     }
 }

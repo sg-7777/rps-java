@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RuleEngine {
 
+    private int matchNumber = 0;
+
     /**
      * This method implements the basic and international known rules for rock, paper, scissors
      * @param playerOne most of the time the real human
@@ -61,7 +63,7 @@ public class RuleEngine {
                 playerTwo.setResult(Result.WIN);
             }
         }
-
-        return new MatchModel(playerOne, playerTwo);
+        matchNumber++;
+        return new MatchModel(String.valueOf(matchNumber), playerOne, playerTwo);
     }
 }
