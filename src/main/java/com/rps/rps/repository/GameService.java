@@ -31,7 +31,7 @@ public class GameService {
      * Simple Method for persisting a GameModel
      * @param gameModel the played game
      */
-    public InsertOneResult saveGame(GameModel gameModel){
+    public boolean saveGame(GameModel gameModel){
         MongoClient mongoClient = MongoClients.create();
 
         MongoDatabase sampleTrainingDB = mongoClient.getDatabase("test");
@@ -39,7 +39,7 @@ public class GameService {
 
         Document game = createGameDocument(gameModel);
 
-        return gameCollection.insertOne(game);
+        return gameCollection.insertOne(game).wasAcknowledged();
     }
 
     /**

@@ -20,7 +20,7 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    public InsertOneResult savePlayer(PlayerModel playerModel){
+    public boolean savePlayer(PlayerModel playerModel){
         MongoClient mongoClient = MongoClients.create();
 
         MongoDatabase sampleTrainingDB = mongoClient.getDatabase("test");
@@ -30,7 +30,7 @@ public class PlayerService {
 
         Document player = createPlayerDocument(playerModel);
 
-        return playerCollection.insertOne(player);
+        return playerCollection.insertOne(player).wasAcknowledged();
     }
 
     public PlayerModel loadPlayerByName(String name){

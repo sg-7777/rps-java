@@ -22,7 +22,7 @@ public class MatchService {
     @Autowired
     private PlayerService playerService;
 
-    public InsertOneResult saveMatch(MatchModel matchModel){
+    public boolean saveMatch(MatchModel matchModel){
 
         MongoClient mongoClient = MongoClients.create();
 
@@ -31,7 +31,7 @@ public class MatchService {
 
         Document match = createMatchDocument(matchModel);
 
-        return matchCollection.insertOne(match);
+        return matchCollection.insertOne(match).wasAcknowledged();
     }
 
     public MatchModel loadMatch(){
