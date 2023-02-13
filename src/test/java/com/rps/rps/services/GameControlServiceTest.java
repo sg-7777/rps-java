@@ -27,21 +27,19 @@ public class GameControlServiceTest {
         gameControlService= new GameControlService(rules);
     }
 
-//TODO FIX TEST
+    //Is this correct?
     @Test
-    @Disabled
     public void decideOutcomeDRAWTest(){
-        PlayerModel player1 = PlayerModel.builder().choice(Item.SCISSORS).result(Result.LOSE).build();
-        PlayerModel player2 = PlayerModel.builder().choice(Item.ROCK).result(Result.WIN).build();
+        PlayerModel player1 = PlayerModel.builder().choice(Item.ROCK).result(Result.DRAW).build();
+        PlayerModel player2 = PlayerModel.builder().choice(Item.ROCK).result(Result.DRAW).build();
 
-//        Mockito.when(rules.decideOutcome(Mockito.any(PlayerModel.class),Mockito.any(PlayerModel.class)))
-//                .thenReturn(new MatchModel(player1,player2));
+        Mockito.when(rules.decideOutcome(Mockito.any(PlayerModel.class),Mockito.any(PlayerModel.class)))
+                .thenReturn(new MatchModel("1", player1,player2));
 
         MatchModel matchModelResult = gameControlService.playAndDecideOutcome(player1);
 
-        assertThat(matchModelResult.getPlayerOne().getResult()).isEqualTo(Result.LOSE);
-        assertThat(matchModelResult.getPlayerTwo().getResult()).isEqualTo(Result.WIN);
+        assertThat(matchModelResult.getPlayerOne().getResult()).isEqualTo(Result.DRAW);
+        assertThat(matchModelResult.getPlayerTwo().getResult()).isEqualTo(Result.DRAW);
     }
-
 
 }

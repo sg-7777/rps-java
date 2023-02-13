@@ -22,12 +22,11 @@ public class MatchService {
     @Autowired
     private PlayerService playerService;
 
+    @Autowired
+    private DBConfig dbConfig;
+
     public boolean saveMatch(MatchModel matchModel){
-
-        MongoClient mongoClient = MongoClients.create();
-
-        MongoDatabase sampleTrainingDB = mongoClient.getDatabase("test");
-        MongoCollection<Document> matchCollection = sampleTrainingDB.getCollection("matchModel");
+        MongoCollection<Document> matchCollection = dbConfig.getDB("matchModel");
 
         Document match = createMatchDocument(matchModel);
 

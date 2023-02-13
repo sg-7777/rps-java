@@ -32,15 +32,15 @@ public class GameService {
     @Autowired
     private MatchService matchService;
 
+    @Autowired
+    private DBConfig dbConfig;
+
     /**
      * Simple Method for persisting a GameModel
      * @param gameModel the played game
      */
     public boolean saveGame(GameModel gameModel){
-        MongoClient mongoClient = MongoClients.create();
-
-        MongoDatabase sampleTrainingDB = mongoClient.getDatabase("test");
-        MongoCollection<Document> gameCollection = sampleTrainingDB.getCollection("gameModel");
+        MongoCollection<Document> gameCollection = dbConfig.getDB("gameModel");
 
         Document game = createGameDocument(gameModel);
 

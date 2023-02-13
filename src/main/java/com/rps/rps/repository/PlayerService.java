@@ -20,13 +20,11 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private DBConfig dbConfig;
+
     public boolean savePlayer(PlayerModel playerModel){
-        MongoClient mongoClient = MongoClients.create();
-
-        MongoDatabase sampleTrainingDB = mongoClient.getDatabase("test");
-        MongoCollection<Document> playerCollection = sampleTrainingDB.getCollection("playerModel");
-
-
+        MongoCollection<Document> playerCollection = dbConfig.getDB("playerModel");
 
         Document player = createPlayerDocument(playerModel);
 
