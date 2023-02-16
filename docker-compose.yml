@@ -4,6 +4,13 @@ services:
     image: rps.jar
     ports:
       - 8181:8080
+    depends_on:
+      - "mongo_db"
+
+  mongo_db:
+    image: "mongo:6.0.4"
+    ports:
+      - 27017:27017
 
   prometheus:
     image: prom/prometheus:latest
